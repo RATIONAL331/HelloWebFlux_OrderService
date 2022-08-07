@@ -1,10 +1,12 @@
 package com.example.orderservice.client;
 
+import com.example.orderservice.dto.users.UserDto;
 import com.example.orderservice.dto.users.UserTransactionRequestDto;
 import com.example.orderservice.dto.users.UserTransactionResponseDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -23,5 +25,12 @@ public class UserClient {
 		                .bodyValue(requestDto)
 		                .retrieve()
 		                .bodyToMono(UserTransactionResponseDto.class);
+	}
+
+	public Flux<UserDto> getAllUsers() {
+		return webClient.get()
+		                .uri("")
+		                .retrieve()
+		                .bodyToFlux(UserDto.class);
 	}
 }
